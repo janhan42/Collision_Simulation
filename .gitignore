@@ -1,0 +1,6 @@
+SFML
+.DS*
+.clangd
+*.out
+*.o
+.OBJ
