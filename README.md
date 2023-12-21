@@ -1,4 +1,4 @@
-# Collision_Simulation
+# ⚽️Collision_Simulation
 
 ## Install:
 `Collision_Simulation` has an automatic installer.
