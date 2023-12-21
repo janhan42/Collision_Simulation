@@ -1,4 +1,4 @@
-# Collision_Sibulation
+# Collision_Simulation
 
 ## Install:
 `Collision_Simulation` has an automatic installer.
@@ -7,7 +7,7 @@ It will automatically download the repo, create the necessary folders.
 And auto run
 
 ```
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/janhan42/Collision/main/installer.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/janhan42/Collision_Simulation/main/installer.sh)"
 ```
 ## How to Play
 English
