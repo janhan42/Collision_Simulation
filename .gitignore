@@ -4,3 +4,4 @@ SFML
 *.out
 *.o
 .OBJ
+./Collision_Simulation

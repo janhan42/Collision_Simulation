@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 01:03:44 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/22 03:03:27 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/22 04:41:26 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ Ball::Ball(float pos_x, float pos_y, float vel_x, float vel_y, sf::Color color)
 	vel.x = vel_x;
 	vel.y = vel_y;
 
-
 	ball.setPosition(pos);
 	ball.setRadius(4);
 	ball.setFillColor(color);
@@ -33,7 +32,6 @@ Ball::Ball(float pos_x, float pos_y, float vel_x, float vel_y, sf::Color color)
 	mass = 10;
 	dt = 0.07;
 }
-
 void	Ball::draw(sf::RenderWindow &window)
 {
 	ball.setPosition(pos);
@@ -92,7 +90,7 @@ void Ball::updatePhysics(std::vector<Ball>& vecBall, sf::RenderWindow& window)
 		const float radius = ball.getRadius();
 		const float screenWidth = static_cast<float>(window.getSize().x);
 		const float screenHeight = static_cast<float>(window.getSize().y);
-		const float restitution = 0.0f; // 탄성 1~0
+		const float restitution = 0.8f; // 탄성 1~0
 
 		// CCD를 적용한 충돌 감지
 		for (auto& otherBall : vecBall)
@@ -152,9 +150,24 @@ void Ball::updatePhysics(std::vector<Ball>& vecBall, sf::RenderWindow& window)
 
 	// 현재 단계의 결과를 다음 단계로 반영
 	pos = newPosition;
+	trajectory.push_back(pos);
 	}
-
+	if (trajectory.size() > maxTrajectoryLength)
+	{
+		trajectory.erase(trajectory.begin());
+	}
 	// 마지막 단계의 위치를 사용하여 물체의 실제 위치 갱신
 	ball.setPosition(pos);
 	ball.setOrigin(ball.getRadius(), ball.getRadius());
+}
+
+void Ball::renderTrajectory(sf::RenderWindow& window) {
+	// Create a vertex array to represent the trajectory
+	sf::VertexArray line(sf::LineStrip, trajectory.size());
+
+	for (std::size_t i = 0; i < trajectory.size(); ++i) {
+		line[i].position = trajectory[i];
+		line[i].color = sf::Color(144, 238, 144, 30);
+	}
+	window.draw(line);
 }
