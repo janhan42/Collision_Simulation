@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 01:03:44 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/24 19:05:25 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/24 19:10:53 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ Ball::Ball(float pos_x, float pos_y, float vel_x, float vel_y, sf::Color color)
 	vel.y = vel_y;
 
 	ball.setPosition(pos);
-	ball.setRadius(10);
+	ball.setRadius(1.0f);
 	ball.setFillColor(color);
 	ball.setOrigin(ball.getRadius(), ball.getRadius());
 

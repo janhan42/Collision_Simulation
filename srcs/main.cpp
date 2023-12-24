@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 00:57:42 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/24 19:04:41 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/24 19:15:26 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	main()
 	sf::Vector2f buttonPosition = sf::Vector2f(window.getSize().x * buttonPositionRatioX, window.getSize().y * buttonPositionRatioY);
 
 	Button button(buttonPosition, buttonSize, "Clear", sf::Color::Green);
-	Button trajectoryButton(sf::Vector2f(buttonPosition.x + 60, buttonPosition.y), buttonSize, "Trajectory", sf::Color::Red);
-	Button gravity(sf::Vector2f(buttonPosition.x + 120, buttonPosition.y), buttonSize, "Rotate", sf::Color::Blue);
+	Button trajectoryButton(sf::Vector2f(button.getPosition().x + buttonSize.x + 10, buttonPosition.y), buttonSize, "Trajectory", sf::Color::Red);
+	Button gravity(sf::Vector2f(trajectoryButton.getPosition().x + buttonSize.x + 10, buttonPosition.y), buttonSize, "Rotate", sf::Color::Blue);
 
 	sf::Font font;
 	if (!font.loadFromFile("arial.ttf"))

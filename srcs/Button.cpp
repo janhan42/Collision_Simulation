@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 03:06:40 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/22 04:40:51 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/24 19:13:17 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,9 @@ bool Button::isMouseOver(const sf::RenderWindow& window)
 {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 	return (buttonShape.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(window))));
+}
+
+sf::Vector2f Button::getPosition()
+{
+	return buttonShape.getPosition();
 }
