@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 01:03:44 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/22 04:41:26 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/24 19:05:25 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ Ball::Ball(float pos_x, float pos_y, float vel_x, float vel_y, sf::Color color)
 	vel.y = vel_y;
 
 	ball.setPosition(pos);
-	ball.setRadius(4);
+	ball.setRadius(10);
 	ball.setFillColor(color);
 	ball.setOrigin(ball.getRadius(), ball.getRadius());
 
@@ -46,6 +46,11 @@ void	Ball::setColor(sf::Color color)
 void	Ball::setVelocity(sf::Vector2f vel)
 {
 	this->vel = vel;
+}
+
+void	Ball::setGravity(sf::Vector2f gravity)
+{
+	this->gravity = gravity;
 }
 
 sf::Vector2f Ball::getPosition()
@@ -91,7 +96,7 @@ void Ball::updatePhysics(std::vector<Ball>& vecBall, sf::RenderWindow& window)
 		const float radius = ball.getRadius();
 		const float screenWidth = static_cast<float>(window.getSize().x);
 		const float screenHeight = static_cast<float>(window.getSize().y);
-		const float restitution = 0.8f; // 탄성 1~0
+		const float restitution = 0.0f; // 탄성 1~0
 
 		// CCD를 적용한 충돌 감지
 		for (auto& otherBall : vecBall)

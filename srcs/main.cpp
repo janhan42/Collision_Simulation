@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 00:57:42 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/22 04:45:26 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/24 19:04:41 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	main()
 
 	Button button(buttonPosition, buttonSize, "Clear", sf::Color::Green);
 	Button trajectoryButton(sf::Vector2f(buttonPosition.x + 60, buttonPosition.y), buttonSize, "Trajectory", sf::Color::Red);
+	Button gravity(sf::Vector2f(buttonPosition.x + 120, buttonPosition.y), buttonSize, "Rotate", sf::Color::Blue);
+
 	sf::Font font;
 	if (!font.loadFromFile("arial.ttf"))
 	{
@@ -58,12 +60,19 @@ int	main()
 	}
 	// flag Setting
 	bool trajectoryFlag = false;
+	int	gravityFlag = 0;
 	// Text Setting
 	sf::Text ballcountText;
+	sf::Text gravitycountText;
 	ballcountText.setFont(font);
 	ballcountText.setCharacterSize(20);
 	ballcountText.setFillColor(sf::Color::White);
 	ballcountText.setPosition(buttonPosition.x + 10, buttonPosition.y + 60);
+
+	gravitycountText.setFont(font);
+	gravitycountText.setCharacterSize(20);
+	gravitycountText.setFillColor(sf::Color::White);
+	gravitycountText.setPosition(buttonPosition.x + 10, buttonPosition.y + 110);
 
 	// Window open event
 	while (window.isOpen())
@@ -79,7 +88,7 @@ int	main()
 				window.setView(sf::View(visibleArea));
 			}
 
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !trajectoryButton.isMouseOver(window)) // Mouse Left Button Pressed Event
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !trajectoryButton.isMouseOver(window) && !gravity.isMouseOver(window)) // Mouse Left Button Pressed Event
 			{
 				if (button.isMouseOver(window))
 				{
@@ -99,9 +108,16 @@ int	main()
 					vecBall.push_back(Ball(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y, -1, -1, randomColor));
 				}
 			}
-			else if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && trajectoryButton.isMouseOver(window))
+			else if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && trajectoryButton.isMouseOver(window) && !gravity.isMouseOver(window))
 			{
 				trajectoryFlag = !trajectoryFlag;
+			}
+			else if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && gravity.isMouseOver(window) && !trajectoryButton.isMouseOver(window))
+			{
+				if (gravityFlag == 4)
+					gravityFlag = 0;
+				gravityFlag += 1;
+
 			}
 			if (event.type == sf::Event::MouseButtonReleased == sf::Mouse::Left) // Mouse Left Released Event
 			{
@@ -111,7 +127,20 @@ int	main()
 		window.clear(); // clear window
 		button.draw(window);
 		trajectoryButton.draw(window);
+		gravity.draw(window);
 	// update and draw all objects
+		if (gravityFlag == 1)
+			for (int i = 0; i < vecBall.size(); i++)
+				vecBall[i].setGravity(sf::Vector2f(9.8f, 0.0f));
+		else if (gravityFlag == 2)
+			for (int i = 0; i < vecBall.size(); i++)
+				vecBall[i].setGravity(sf::Vector2f(0.0f, -9.8f));
+		else if (gravityFlag == 3)
+			for (int i = 0; i < vecBall.size(); i++)
+				vecBall[i].setGravity(sf::Vector2f(-9.8f, 0.0f));
+		else if (gravityFlag == 4)
+			for (int i = 0; i < vecBall.size(); i++)
+				vecBall[i].setGravity(sf::Vector2f(0.0f, 9.8f));
 		for (int i = 0; i < vecBall.size(); i++)
 		{
 			vecBall[i].updatePhysics(vecBall, window);
@@ -121,8 +150,12 @@ int	main()
 		}
 		std::stringstream ss;
 		ss << "Ball Count (MAX: " << maxBallCount << "): " << currentBallCount;
+		std::stringstream str;
+		str << "gravityFlag : " << gravityFlag;
+		gravitycountText.setString(str.str());
 		ballcountText.setString(ss.str());
 		window.draw(ballcountText);
+		window.draw(gravitycountText);
 		window.display(); // draw complete -> display
 	}
 	return 0;

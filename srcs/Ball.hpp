@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 01:03:56 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/22 04:41:23 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/24 19:04:28 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ class Ball
 		void			setColor(sf::Color color);
 		void			setVelocity(sf::Vector2f vel);
 		void			setPosition(sf::Vector2f pos);
+		void			setGravity(sf::Vector2f gravity);
 		sf::Vector2f	getPosition();
 		float			getRadius();
 		sf::Vector2f	getVelocity();
