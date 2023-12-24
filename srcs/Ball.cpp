@@ -16,6 +16,7 @@
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/System/Vector2.hpp"
 #include <vector>
+#include <cmath>
 
 Ball::Ball(float pos_x, float pos_y, float vel_x, float vel_y, sf::Color color)
 {
